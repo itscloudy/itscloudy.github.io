@@ -1,0 +1,688 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Day - Dream</title>
+    <!-- 编码设置 -->
+    <meta charset="utf-8" />
+    <!-- 定义针对搜索引擎的关键词： -->
+    <meta name="keywords" content="HTML, CSS, XML, XHTML, JavaScript, JQuery, CSS3, HTML5" />
+    <!-- 定义对页面的描述 -->
+    <meta name="description" content="DayDream,Html 5 , HTML" />
+    <!-- 定义页面的最新版本 -->
+    <meta name="revised" content="Cloud, 2013/11/9" />
+    <!--  链接外部样式 -->
+    <!-- reset css -->
+    <link type="text/css" rel="stylesheet" href="static/css/reset/reset.css" />
+    <!--<link type="text/css" rel="stylesheet" href="static/css/reset/html5-base.css" />    -->
+    <!-- custom css -->
+    <link type="text/css" rel="stylesheet" href="static/css/main.css" />
+    <!-- font-awesome -->
+    <link type="text/css" rel="stylesheet" href="font-awesome/font-awesome.css" />
+    <style>
+    </style>
+</head>
+<body>
+    <div id="MainContainer" style="position: fixed; border: 2px solid lightblue;">
+        <canvas id="canvasBg" style="background: black; position: absolute; top: 0px; left: 0px; z-index: -1;"></canvas>
+        <canvas id="canvasPane0" style="position: absolute; top: 0px; left: 0px; z-index: 0;"></canvas>
+        <!--<canvas id="canvasPane1" style="position:absolute;top:0px;left:0px;z-index:1;"></canvas>-->
+        <canvas id="canvasTop" style="position: absolute; top: 0px; left: 0px; z-index: 99;"></canvas>
+    </div>
+
+    <!-- MainContainer -->
+    <!-- load js delay -->
+    <script type="text/javascript" src="static/js/plugin/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="static/js/common.js"></script>
+    <script type="text/javascript" src="static/js/tools.js"></script>
+    <script type="text/javascript" src="static/js/local-storage.js"></script>
+    <script type="text/javascript" src="static/js/custom/canvas.js"></script>
+    <script type="text/javascript" src="static/js/custom/audio.js"></script>
+    <script type="text/javascript">
+
+        $().ready(function () {
+            var BorderWidth = 3;
+            var BorderLength = 60;
+            //TODO
+            var canvasbg = document.getElementById("canvasBg");
+            var ctxbg = canvasbg.getContext("2d");
+
+            var width = window.outerWidth;
+            var height = window.outerHeight;
+
+            var canvasPane0 = document.getElementById("canvasPane0");
+            var ctxPane0 = canvasPane0.getContext("2d");
+            canvasPane0.width = width;
+            canvasPane0.height = height;
+
+            /*var canvasPane1 = document.getElementById("canvasPane1");
+            var ctxPane1 = canvasPane1.getContext("2d");
+            canvasPane1.width = width;
+            canvasPane1.height = height;
+            */
+
+            var canvasTop = document.getElementById("canvasTop");
+            var ctxTop = canvasTop.getContext("2d");
+            canvasTop.width = width;
+            canvasTop.height = height;
+
+            //draw bg
+            canvasbg.width = width;
+            canvasbg.height = height;
+
+            var HexagonList = new Array();
+
+            var CurrentPane = "0";
+            var PaneData = {
+                CurrentPane: 0, //currentPane 当前板块深度
+                addPane: function (index, pane, ctxpane, hexlist) {
+                    !hexlist && (hexlist = new Array());
+                    this[index] = {
+                        index: index,
+                        pane: pane,
+                        ctx: ctxpane,
+                        hexagonlist: hexlist,//六边形数组对象
+                    }
+                },
+                getPane: function (index) {
+                    return this[index];
+                },
+                createPane: function (index, func) {
+                    var c = $("<canvas id='canvasPane" + index + "'></canvas>")
+                    var container = $("#MainContainer");
+                    container.append(c);
+                    c[0].width = width;
+                    c[0].height = height;
+                    this.addPane(index, c[0], c[0].getContext("2d"));
+                    typeof func === "function" && func(this);
+                },
+                updatePane: function (index) {
+                    if (this.getPane(index)) {
+                        this.CurrentPane = index;
+                    } else {
+                        this.createPane(index);
+                        this.CurrentPane = index;
+                    }
+                },
+                showNextPane: function () {
+                    this.updateCurrentPane();
+                    $(this.getCurrentPane()).css({
+                        "z-index": this.getCurrentIndex(),
+                        "background": "rgba(0,0,0,0.7)",
+                        "position":"absolute",
+                    });
+                    $(this.getCurrentPane()).show();
+                },
+                gobackPane: function () {
+                    var index =this.getCurrentIndex();
+                    if(parseInt(index)!==0){
+                        var p = this.getCurrentPane();
+                        var c = this.getCurrentCtx();
+                        c.clearRect(0, 0, width, height);
+                        $(p).hide();
+                        this.updatePane(--this.CurrentPane);
+                    }
+                },
+                updateCurrentPane: function () {
+                    this.updatePane(++this.CurrentPane);
+                },
+                getPaneHexagonList: function (index) {
+                    return this[index].hexagonlist;
+                },
+                getPaneCtx: function (index) {
+                    return this[index].ctx;
+                },
+                getCurrentHexagonList: function () {
+                    return PaneData[PaneData.CurrentPane].hexagonlist;
+                },
+                getCurrentPane: function () {
+                    return PaneData[PaneData.CurrentPane].pane;
+                },
+                getCurrentCtx: function () {
+                    return PaneData[PaneData.CurrentPane].ctx;
+                },
+                getCurrentIndex: function () {
+                    return PaneData[PaneData.CurrentPane].index;
+                },
+                //添加指定hexlist到PaneHexagon
+                addPaneHexagon: function (index, hexlist) {
+                    if (isArray(hexlist)) {
+                        for (var i = 0; i < hexlist.length; i++) {
+                            var list = this.getPaneHexagonList(index)
+                            list.push(hexlist[i]);
+                        }
+                    } else {
+                        throw "param hexlist must be a Array object"
+                    }
+                },
+                //添加指定的hexlist到当前 Pane 
+                addCurrentPaneHexagon: function (hexlist) {
+                    if (isArray(hexlist)) {
+                        this.addPaneHexagon(this.CurrentPane, hexlist);
+                    } else {
+                        throw "param hexlist must be a Array object";
+                    }
+                },
+
+            }
+
+            // full arrange
+            // init original hexagon
+            var deg = 90, spaceWidth, spaceHeight;
+            if (!deg) {
+                spaceWidth = BorderLength * Math.sqrt(3);
+                spaceHeight = 1.5 * BorderLength;
+            } else {
+                spaceWidth = 3 * BorderLength;
+                spaceHeight = BorderLength * Math.sqrt(3) / 2;
+            }
+            var stepX = 0, stepY = 0;
+
+            var centerX = width / 2;
+            var centerY = height / 2;
+
+            for (var stepY = 0; stepY < (centerY + spaceHeight / 2) / spaceHeight; stepY++) {
+                for (var stepX = 0; stepX < (centerX + spaceWidth / 2) / spaceWidth; stepX++) {
+                    var h1, h2, h3, h4;
+                    if (stepY % 2 === 0) {
+                        if (stepX === 0) {
+                            h1 = new Hexagon(centerX + stepX * spaceWidth, centerY + stepY * spaceHeight, BorderLength, deg, [stepX + 1, stepY + 1]);
+                            //ctxbg.drawDashStrokeHexagon(h1);
+                            HexagonList.push(h1);
+                            h2 = new Hexagon(centerX + stepX * spaceWidth, centerY + -stepY * spaceHeight, BorderLength, deg, [stepX + 1, -(stepY + 1)]);
+                            //ctxbg.drawDashStrokeHexagon(h2);
+                            HexagonList.push(h2);
+                        } else {
+                            h1 = new Hexagon(centerX + stepX * spaceWidth, centerY + stepY * spaceHeight, BorderLength, deg, [(stepX + 1), (stepY + 1)]);
+                            //ctxbg.drawDashStrokeHexagon(h1);
+                            HexagonList.push(h1);
+                            h2 = new Hexagon(centerX + stepX * spaceWidth, centerY + -stepY * spaceHeight, BorderLength, deg, [(stepX + 1), -(stepY + 1)]);
+                            //ctxbg.drawDashStrokeHexagon(h2);
+                            HexagonList.push(h2);
+                            h3 = new Hexagon(centerX + -stepX * spaceWidth, centerY + stepY * spaceHeight, BorderLength, deg, [-(stepX + 1), (stepY + 1)]);
+                            //ctxbg.drawDashStrokeHexagon(h3);
+                            HexagonList.push(h3);
+                            h4 = new Hexagon(centerX + -stepX * spaceWidth, centerY + -stepY * spaceHeight, BorderLength, deg, [-(stepX + 1), -(stepY + 1)]);
+                            //ctxbg.drawDashStrokeHexagon(h4);
+                            HexagonList.push(h4);
+                        }
+                    } else {
+                        h1 = new Hexagon(centerX + (stepX + .5) * spaceWidth, centerY + stepY * spaceHeight, BorderLength, deg, [(stepX + 1), (stepY + 1)]);
+                        //ctxbg.drawDashStrokeHexagon(h1);
+                        HexagonList.push(h1);
+                        h2 = new Hexagon(centerX + (stepX + .5) * spaceWidth, centerY + -stepY * spaceHeight, BorderLength, deg, [(stepX + 1), -(stepY + 1)]);
+                        //ctxbg.drawDashStrokeHexagon(h2);
+                        HexagonList.push(h2);
+
+                        h3 = new Hexagon(centerX + -(stepX + .5) * spaceWidth, centerY + stepY * spaceHeight, BorderLength, deg, [-(stepX + 1), (stepY + 1)]);
+                        //ctxbg.drawDashStrokeHexagon(h3);
+                        HexagonList.push(h3);
+                        h4 = new Hexagon(centerX + -(stepX + .5) * spaceWidth, centerY + -stepY * spaceHeight, BorderLength, deg, [-(stepX + 1), -(stepY + 1)]);
+                        //ctxbg.drawDashStrokeHexagon(h4);
+                        HexagonList.push(h4);
+                    }
+                }
+            }
+
+            //generage the related hexagon
+            for (var i = 0; i < HexagonList.length; i++) {
+                var h = HexagonList[i];
+                var axis = h.axis;
+                var x = axis[0], y = axis[1];
+                if (x != 1 && y === 1) {
+                    h.relateHexagon[0] = getHexagonByAxis([x, -3]);
+                    h.relateHexagon[3] = getHexagonByAxis([x, 3]);
+                    if (x > 0) {
+                        h.relateHexagon[1] = getHexagonByAxis([x, -2]);
+                        h.relateHexagon[2] = getHexagonByAxis([x, 2]);
+                        h.relateHexagon[4] = getHexagonByAxis([x - 1, 2]);
+                        h.relateHexagon[5] = getHexagonByAxis([x - 1, -2]);
+                    } else {
+                        h.relateHexagon[1] = getHexagonByAxis([x + 1, -2]);
+                        h.relateHexagon[2] = getHexagonByAxis([x + 1, 2]);
+                        h.relateHexagon[4] = getHexagonByAxis([x, 2]);
+                        h.relateHexagon[5] = getHexagonByAxis([x, -2]);
+                    }
+                } else if (x > 0 && y !== 1 && y !== 2 && y !== -2 && (!(x === 1 && (y % 2 === 1 || y % 2 === -1)))) {
+                    h.relateHexagon[0] = getHexagonByAxis([x, y - 2]);
+                    h.relateHexagon[3] = getHexagonByAxis([x, y + 2]);
+                    if (y % 2 === 1 || y % 2 === -1) {
+                        h.relateHexagon[1] = getHexagonByAxis([x, y - 1]);
+                        h.relateHexagon[2] = getHexagonByAxis([x, y + 1]);
+                        h.relateHexagon[4] = getHexagonByAxis([x - 1, y + 1]);
+                        h.relateHexagon[5] = getHexagonByAxis([x - 1, y - 1]);
+                    } else {
+                        h.relateHexagon[1] = getHexagonByAxis([x + 1, y - 1]);
+                        h.relateHexagon[2] = getHexagonByAxis([x + 1, y + 1]);
+                        h.relateHexagon[4] = getHexagonByAxis([x, y + 1]);
+                        h.relateHexagon[5] = getHexagonByAxis([x, y - 1]);
+                    }
+                } else if (x < -1 && y !== 1 && y !== 2 && y !== -2) {
+                    h.relateHexagon[0] = getHexagonByAxis([x, y - 2]);
+                    h.relateHexagon[3] = getHexagonByAxis([x, y + 2]);
+                    if (y % 2 === 1 || y % 2 === -1) {
+                        h.relateHexagon[1] = getHexagonByAxis([x + 1, y - 1]);
+                        h.relateHexagon[2] = getHexagonByAxis([x + 1, y + 1]);
+                        h.relateHexagon[4] = getHexagonByAxis([x, y + 1]);
+                        h.relateHexagon[5] = getHexagonByAxis([x, y - 1]);
+                    } else {
+                        h.relateHexagon[1] = getHexagonByAxis([x, y - 1]);
+                        h.relateHexagon[2] = getHexagonByAxis([x, y + 1]);
+                        h.relateHexagon[4] = getHexagonByAxis([x - 1, y + 1]);
+                        h.relateHexagon[5] = getHexagonByAxis([x - 1, y - 1]);
+                    }
+                } else if (y === 2 && x > 0) {
+                    h.relateHexagon[0] = getHexagonByAxis([x, -y]);
+                    h.relateHexagon[1] = getHexagonByAxis([x + 1, y - 1]);
+                    h.relateHexagon[2] = getHexagonByAxis([x + 1, y + 1]);
+                    h.relateHexagon[3] = getHexagonByAxis([x, y + 2]);
+                    h.relateHexagon[4] = getHexagonByAxis([x, y + 1]);
+                    h.relateHexagon[5] = getHexagonByAxis([x, y - 1]);
+                } else if (y === -2 && x > 0) {
+                    h.relateHexagon[0] = getHexagonByAxis([x, y - 2]);
+                    h.relateHexagon[1] = getHexagonByAxis([x + 1, y - 1]);
+                    h.relateHexagon[2] = getHexagonByAxis([x + 1, 1]);
+                    h.relateHexagon[3] = getHexagonByAxis([x, -y]);
+                    h.relateHexagon[4] = getHexagonByAxis([x, y + 1]);
+                    h.relateHexagon[5] = getHexagonByAxis([x, y - 1]);
+                } else if (y === 2 && x < -1) {
+                    h.relateHexagon[0] = getHexagonByAxis([x, -y]);
+                    h.relateHexagon[1] = getHexagonByAxis([x, y - 1]);
+                    h.relateHexagon[2] = getHexagonByAxis([x, y + 1]);
+                    h.relateHexagon[3] = getHexagonByAxis([x, y + 2]);
+                    h.relateHexagon[4] = getHexagonByAxis([x - 1, y + 1]);
+                    h.relateHexagon[5] = getHexagonByAxis([x - 1, y - 1]);
+                } else if (y === -2 && x < -1) {
+                    h.relateHexagon[0] = getHexagonByAxis([x, y - 2]);
+                    h.relateHexagon[1] = getHexagonByAxis([x, -3]);
+                    h.relateHexagon[2] = getHexagonByAxis([x, 1]);
+                    h.relateHexagon[3] = getHexagonByAxis([x, -y]);
+                    h.relateHexagon[4] = getHexagonByAxis([x - 1, 1]);
+                    h.relateHexagon[5] = getHexagonByAxis([x - 1, y - 1]);
+                } else if (x === -1 && y !== 2 && y !== -2) {
+                    h.relateHexagon[0] = getHexagonByAxis([x, y - 2]);
+                    h.relateHexagon[1] = getHexagonByAxis([-x, y - 1]);
+                    h.relateHexagon[2] = getHexagonByAxis([-x, y + 1]);
+                    h.relateHexagon[3] = getHexagonByAxis([x, y + 2]);
+                    h.relateHexagon[4] = getHexagonByAxis([x - 1, y + 1]);
+                    h.relateHexagon[5] = getHexagonByAxis([x - 1, y - 1]);
+                } else if (x === 1 && y !== 1 && (y % 2 === 1 || y % 2 === -1)) {
+                    h.relateHexagon[0] = getHexagonByAxis([x, y - 2]);
+                    h.relateHexagon[1] = getHexagonByAxis([x, y - 1]);
+                    h.relateHexagon[2] = getHexagonByAxis([x, y + 1]);
+                    h.relateHexagon[3] = getHexagonByAxis([x, y + 2]);
+                    h.relateHexagon[4] = getHexagonByAxis([-x, y + 1]);
+                    h.relateHexagon[5] = getHexagonByAxis([-x, y - 1]);
+                } else if (x === 1 && y === 1) {
+                    h.relateHexagon[0] = getHexagonByAxis([x, -3]);
+                    h.relateHexagon[1] = getHexagonByAxis([x, -2]);
+                    h.relateHexagon[2] = getHexagonByAxis([x, 2]);
+                    h.relateHexagon[3] = getHexagonByAxis([x, 3]);
+                    h.relateHexagon[4] = getHexagonByAxis([-x, 2]);
+                    h.relateHexagon[5] = getHexagonByAxis([-x, -2]);
+                } else if (x === -1 && Math.abs(y) === 2) {
+                    if (y === 2) {
+                        h.relateHexagon[0] = getHexagonByAxis([x, -y]);
+                        h.relateHexagon[1] = getHexagonByAxis([-x, y - 1]);
+                        h.relateHexagon[2] = getHexagonByAxis([-x, y + 1]);
+                        h.relateHexagon[3] = getHexagonByAxis([x, y + 2]);
+                        h.relateHexagon[4] = getHexagonByAxis([x - 1, y + 1]);
+                        h.relateHexagon[5] = getHexagonByAxis([x - 1, y - 1]);
+                    } else {
+                        h.relateHexagon[0] = getHexagonByAxis([x, y - 2]);
+                        h.relateHexagon[1] = getHexagonByAxis([-x, y - 1]);
+                        h.relateHexagon[2] = getHexagonByAxis([-x, 1]);
+                        h.relateHexagon[3] = getHexagonByAxis([x, -y]);
+                        h.relateHexagon[4] = getHexagonByAxis([x - 1, 1]);
+                        h.relateHexagon[5] = getHexagonByAxis([x - 1, y - 1]);
+                    }
+
+                }
+
+            }
+
+            function getHexagonByAxis(axis, hexagonList) {
+                !hexagonList && (hexagonList = HexagonList);
+                var t = null;
+                for (var i = 0; i < HexagonList.length; i++) {
+                    var h = HexagonList[i];
+                    if (h.axis[0] === axis[0] && h.axis[1] === axis[1]) {
+                        t = h;
+                    }
+                }
+                return t;
+            }
+
+            //init data
+            PaneData.addPane("0", canvasPane0, ctxPane0, HexagonList);
+
+
+            var currentHex = null
+            //bg 背景hover框
+            $(canvasTop).bind("mousemove", function (e) {
+                //移动外圈光标
+                var x = e.offsetX, y = e.offsetY;
+                var p = point(x, y);
+                var hex = getRecentHexagon(p, PaneData.getCurrentHexagonList());
+                if (!(hex && currentHex && (hex.center.x === currentHex.center.x) && (hex.center.y === currentHex.center.y)) && hex) {
+                    currentHex = hex;
+                    ctxTop.clearRect(0, 0, width, height);
+                    ctxTop.beginPath();
+                    ctxTop.strokeStyle = "#FF3366";
+                    ctxTop.lineWidth = BorderWidth;
+                    ctxTop.lineCap = "square";
+                    ctxTop.drawDashStrokeHexagon(currentHex, [BorderLength * .25, BorderLength * .5], true);
+                    ctxTop.stroke();
+                    ctxTop.closePath();
+                    ctxTop.fillStyle = "lightblue";
+                    ctxTop.fillText(currentHex.axis, currentHex.center.x, currentHex.center.y);
+                }
+            }).bind("mousedown", function (e) {
+                /*
+                if (hex) {
+                    if (!hex.on) {
+                        ctxPane1.clearRect(0, 0, width, height);
+                        ctxPane1.beginPath();
+                        ctxPane1.strokeStyle = "#FF3366";
+                        ctxPane1.lineWidth = BorderWidth;
+                        ctxPane1.lineCap = "square";
+                        ctxPane1.drawDashStrokeHexagon(hex, [15, 30], true);
+                        ctxPane1.stroke();
+                        ctxPane1.closePath();
+                        ctxPane1.beginPath();
+                        ctxPane1.strokeStyle = "#00CCFF";
+                        ctxPane1.drawDashStrokeHexagon(hex, [10, 40]);
+                        ctxPane1.stroke();
+                        ctxPane1.closePath();
+                    }
+                }
+                */
+            }).bind("mouseup", function (e) {
+
+                /*
+                var x = e.offsetX, y = e.offsetY;
+                var p = point(x, y);
+                var hex = getRecentHexagon(p, HexagonList);
+                if (hex) { 
+                    if (!hex.on) {
+                        hex.on = true;
+                    } else {
+                        hex.on = false;
+                    }
+                }
+                ctxbg.clearRect(0, 0, width, height);
+                ctxbg.beginPath()
+                ctxbg.strokeStyle = "#00CCFF";
+                ctxbg.lineWidth = BorderWidth;
+                ctxbg.lineCap = "square";
+                ctxbg.fillStyle = "#00CCFF";
+                for (var i = 0; i < HexagonList.length; i++) {
+                    var hex = HexagonList[i];
+                    if (hex.on) {
+                        ctxbg.drawDashStrokeHexagon(hex,[10,40]);
+                        ctxbg.drawHexagon(hex);
+                        //ctxbg.fillStyle = "black";
+                        //ctxbg.fillText(hex.axis, hex.center.x, hex.center.y);
+                    }
+                }
+                ctxbg.fill();
+                ctxbg.stroke();
+                ctxPane1.closePath();
+                */
+
+                //点击
+
+                var x = e.offsetX, y = e.offsetY;
+                var p = point(x, y);
+                //返回当前所点击的目标区块 (根据Pane层级和point点获取);
+                var hex = getRecentHexagon(p, PaneData.getCurrentHexagonList());
+                //relateHexagon test
+                if (hex) {
+                    if (hex.on) {
+                        PaneData.showNextPane();
+                        var hexlist = getHexAndRelateToArray(hex);
+                        PaneData.addCurrentPaneHexagon(hexlist)
+                        var c = PaneData.getCurrentCtx();
+                        c.clearRect(0, 0, width, height);
+                        c.beginPath();
+                        c.strokeStyle = "lightblue";
+                        c.lineWidth = BorderWidth;
+                        c.lineCap = "square";
+                        c.fillStyle = "lightblue";
+                        c.drawDashStrokeHexagon(hex, [BorderLength * .25, BorderLength * .5], false);
+                        c.drawHexagon(hex);
+                        for (var i = 0; i < hex.relateHexagon.length; i++) {
+                            var h = hex.relateHexagon[i];
+                            if (h) {
+                                c.drawDashStrokeHexagon(h, [BorderLength * .25, BorderLength * .5], false);
+                                c.drawHexagon(h);
+                            }
+                        }
+                        c.fill()
+                        c.stroke();
+                        c.closePath();
+                        c.beginPath();
+                    } else {
+                        var c = PaneData.getCurrentCtx();
+                        c.clearRect(0, 0, width, height);
+                        c.beginPath();
+                        c.strokeStyle = "lightblue";
+                        c.lineWidth = BorderWidth;
+                        c.lineCap = "square";
+                        c.fillStyle = "lightblue";
+                        c.drawDashStrokeHexagon(hex, [BorderLength * .25, BorderLength * .5], false);
+                        c.drawHexagon(hex);
+                        var currentHexList = PaneData.getCurrentHexagonList();
+                        for (var i = 0; i < currentHexList.length; i++) {
+                            var h = currentHexList[i];
+                            if (h.on) {
+                                c.drawDashStrokeHexagon(h, [BorderLength * .25, BorderLength * .5], false);
+                                c.drawHexagon(h);
+                            }
+                        }
+                        c.fill()
+                        c.stroke();
+                        c.closePath();
+                        c.beginPath();
+
+                        hex.on = true;
+                    }
+                } else {
+                    PaneData.gobackPane();
+                }
+            });
+
+            //获取hex和其对应的relateHexagon并将其转换为Array
+            function getHexAndRelateToArray(hex) {
+                var hexlist = new Array();
+                hexlist.push(hex);
+                for (var i = 0; i < hex.relateHexagon.length; i++) {
+                    if (hex.relateHexagon[i]) {
+                        hexlist.push(hex.relateHexagon[i]);
+                    }
+                }
+                return hexlist;
+            }
+
+            //根据point点获取hexList中对应的hex
+            function getRecentHexagon(point, hexList) {
+                for (i = 0; i < hexList.length; i++) {
+                    var dis = Math.pow(point.x - hexList[i].center.x, 2) + Math.pow(point.y - hexList[i].center.y, 2);
+                    if (dis <= Math.pow(BorderLength * Math.sqrt(3) / 2, 2)) {
+                        if (!hexList[i].borderpoint) {
+                            debugger
+                        } else {
+                            return hexList[i];
+                        }
+                    }
+                }
+                return null;
+            }
+
+        });
+
+        //六边形对象
+        function Hexagon(x, y, l, deg, axis) {
+            //top point
+            this.center = { "x": x, "y": y };
+            this.l = l;
+            this.deg = 0;//defalut
+            this.axis = axis;
+            this.relateHexagon = new Array(6);
+            deg && (this.deg = deg);
+            this.borderpoint = new Array(7);
+            this.contentpoint = new Array(7)
+            //获取六个点
+            var borderWidth = 5
+            var borderspace = borderWidth / 2 + 2;
+            var l = this.l;
+            var cl = this.l - borderspace;
+            var f = {
+                x: this.center.x,
+                y: this.center.y - l,
+            }
+            var o = {
+                x: this.center.x,
+                y: this.center.y,
+            }
+
+            this.borderpoint[0] = PointRotateTo(f, o, this.deg);
+            var x = f.x, y = f.y;
+            var cx = this.center.x, cy = this.center.y - cl;
+            this.contentpoint[0] = PointRotateTo(point(this.center.x, this.center.y - cl), o, this.deg);
+            x = x + Math.sin(60 / 180 * Math.PI) * l;
+            y = y + Math.sin(30 / 180 * Math.PI) * l;
+            cx = cx + Math.sin(60 / 180 * Math.PI) * cl;
+            cy = cy + Math.sin(30 / 180 * Math.PI) * cl;
+            this.borderpoint[1] = PointRotateTo(point(x, y), o, this.deg);
+            this.contentpoint[1] = PointRotateTo(point(cx, cy), o, this.deg);
+            x = x;
+            y = y + l;
+            cx = cx;
+            cy = cy + cl;
+            //deg
+            this.borderpoint[2] = PointRotateTo(point(x, y), o, this.deg);
+            this.contentpoint[2] = PointRotateTo(point(cx, cy), o, this.deg);
+            x = x - Math.sin(60 / 180 * Math.PI) * l;
+            y = y + Math.sin(30 / 180 * Math.PI) * l;
+            cx = cx - Math.sin(60 / 180 * Math.PI) * cl;
+            cy = cy + Math.sin(30 / 180 * Math.PI) * cl;
+            this.borderpoint[3] = PointRotateTo(point(x, y), o, this.deg);
+            this.contentpoint[3] = PointRotateTo(point(cx, cy), o, this.deg);
+            x = x - Math.sin(60 / 180 * Math.PI) * l;
+            y = y - Math.sin(30 / 180 * Math.PI) * l;
+            cx = cx - Math.sin(60 / 180 * Math.PI) * cl;
+            cy = cy - Math.sin(30 / 180 * Math.PI) * cl;
+            this.borderpoint[4] = PointRotateTo(point(x, y), o, this.deg);
+            this.contentpoint[4] = PointRotateTo(point(cx, cy), o, this.deg);
+            x = x;
+            y = y - l;
+            cx = cx;
+            cy = cy - cl;
+            this.borderpoint[5] = PointRotateTo(point(x, y), o, this.deg);
+            this.contentpoint[5] = PointRotateTo(point(cx, cy), o, this.deg);
+            this.borderpoint[6] = PointRotateTo(f, o, this.deg);
+            this.contentpoint[6] = PointRotateTo(point(this.center.x, this.center.y - cl), o, this.deg);
+
+        }
+
+
+        //获取point以orgin为中点旋转deg度后的点
+        function PointRotateTo(point, origin, deg) {
+            var x = point.x - origin.x;
+            var y = (origin.y - point.y);
+            var length = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+            var oldDegY = Math.acos(y / length) / Math.PI * 180;
+            if (x < 0) {
+                oldDegY = -oldDegY + 360;
+            }
+            //var newDeg = oldDeg + deg;
+            //console.log("new deg = " + newDeg);
+            var newDegY = oldDegY + deg;
+            x = toFixed(origin.x + Math.sin(newDegY / 180 * Math.PI) * length);
+
+            y = toFixed(origin.y + Math.cos(newDegY / 180 * Math.PI) * length)
+            return { x: x, y: y };
+        }
+
+        //画虚线的自定义方法
+        if (window.CanvasRenderingContext2D && CanvasRenderingContext2D.prototype.lineTo) {
+            CanvasRenderingContext2D.prototype.dashedLine = function (x, y, x2, y2, dashArray, draw) {
+                if (!dashArray) dashArray = [5, 10];
+                var dashCount = dashArray.length;
+                this.moveTo(x, y);
+                console.log("from [x:" + x + ",y:" + y + "] to [x:" + x2 + ",y:" + y2 + "]");
+                var dx = (x2 - x), dy = (y2 - y);
+                var slope = dy / dx;
+
+                var distRemaining = Math.sqrt(dx * dx + dy * dy);
+                dx < 0 && (fuX = -1);
+                var dashIndex = 0;
+                if (draw) {
+                    draw = false;
+                } else {
+                    draw = true;
+                }
+                while (distRemaining >= 0.1 && dashIndex < 10000) {
+                    var dashLength = dashArray[dashIndex++ % dashCount];
+                    if (dashLength == 0) dashLength = 0.001; // Hack for Safari
+                    if (dashLength > distRemaining) dashLength = distRemaining;
+                    var xStep = Math.sqrt(dashLength * dashLength / (1 + slope * slope));
+                    ((slope === Infinity) || (slope === -Infinity)) && (xStep = dashLength);
+                    if (dx > 0) {
+                        x += xStep;
+                    } else if (dx < 0) {
+                        x -= xStep;
+                    }
+
+                    if (slope !== Infinity && slope !== -Infinity) {
+                        if (dx > 0) {
+                            y += slope * xStep;
+                        } else if (dx < 0) {
+                            y += -slope * xStep;
+                        }
+
+                    } else {
+                        if (dy > 0) {
+                            y += xStep;
+                        } else if (dy < 0) {
+                            y -= xStep;
+                        }
+
+                    }
+
+                    this[draw ? 'lineTo' : 'moveTo'](x, y);
+                    distRemaining -= dashLength;
+                    //this.stroke();
+                    draw = !draw;
+                }
+                // Ensure that the last segment is closed for proper stroking
+            }
+        }
+
+        //画六边形的自定义方法
+        CanvasRenderingContext2D.prototype.drawHexagon = function (hex) {
+            var point = hex.contentpoint;
+            this.moveTo(point[0].x, point[0].y);
+            for (var i = 1; i < point.length; i++) {
+                this.lineTo(point[i].x, point[i].y);
+            }
+        }
+        //hex 六角形对象
+        //dasharray [x,y]数组，虚线间隔
+        //draw:true||null 虚线间隔逆反
+        CanvasRenderingContext2D.prototype.drawDashStrokeHexagon = function (hex, dasharray, draw) {
+            !dasharray && (dasharray = [10, 40]);
+            var point = hex.borderpoint;
+            //this.moveTo(point[0].x, point[0].y);
+            for (var i = 0; i < point.length - 1; i++) {
+                this.dashedLine(point[i].x, point[i].y, point[i + 1].x, point[i + 1].y, dasharray, draw);
+            }
+        }
+
+        function point(x, y) {
+            return { x: x, y: y };
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,676 @@
+﻿/* Text Wall */
+#TextWall {
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,.5);
+}
+
+#TextWall .text {
+    text-align: center;
+    color: #fff;
+    bottom: 0px;
+    font-weight: bolder;
+    width: 100%;
+}
+
+#TextWall .wallCover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    z-index: 10;
+}
+
+#TextWall .wall {
+    position: absolute;
+    width: 300%;
+    height: 300%;
+    top: 0px;
+    left: 0px;
+    z-index: 0;
+}
+
+/* Cant Slide */
+#BoxSlide {
+    width: 100%;
+    height: 100%;
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+}
+
+
+.slidein {
+    -webkit-transition-duration: 1s;
+}
+
+#BoxSlide > li:hover .bottom.slidein {
+    top: 0%;
+}
+
+.bottom.slidein {
+    top: 100%;
+}
+
+#BoxSlide > li:hover .top.slidein {
+    bottom: 0%;
+}
+
+.top.slidein {
+    bottom: 100%;
+}
+
+#BoxSlide > li {
+    /*-webkit-transform: skewX(-15deg);*/
+    -webkit-box-flex: 1;
+    border-left: 2px solid #fff;
+    border-right: 2px solid #fff;
+    -webkit-transform-origin: bottom left;
+    overflow: hidden;
+    height: 100%;
+}
+
+    #BoxSlide > li > div {
+        /*-webkit-transform: skewX(15deg);*/
+        width: 100%;
+        height: 100%;
+        position: absolute;
+    }
+
+
+    #BoxSlide > li:nth-of-type(2n-1) {
+        /*background: #000;*/
+    }
+
+    #BoxSlide > li:nth-of-type(2n) {
+        /*background: #fff;*/
+    }
+
+#BoxSlide .center {
+    -webkit-transform-origin: center;
+    height: 100%;
+    width: 100%;
+}
+
+    #BoxSlide .center div {
+        top: 50%;
+        left: 50%;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+    }
+
+#BoxSlide .upright.bottom {
+    -webkit-transform-origin: bottom left;
+}
+
+#BoxSlide .cant.bottom {
+    -webkit-transform-origin: bottom right;
+}
+
+#BoxSlide .upright.bottom div {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: auto;
+}
+
+#BoxSlide .cant.bottom > div {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: auto;
+}
+
+#BoxSlide .bottom img {
+    left: 0px;
+    bottom: 0px;
+}
+
+#BoxSlide .upright.top {
+    -webkit-transform-origin: top right;
+}
+
+#BoxSlide .cant.top {
+    -webkit-transform-origin: top left;
+}
+
+#BoxSlide .top > div {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 100%;
+    height: 100%;
+}
+
+#BoxSlide .top img {
+    right: 0px;
+}
+
+.grayImage img:nth-of-type(2n-1) {
+    position: relative;
+    -webkit-transition-duration: 0.5s;
+}
+
+.grayImage img:nth-of-type(2n) {
+    position: absolute;
+    opacity: 1;
+    -webkit-transition-duration: 0.5s;
+}
+
+#BoxSlide > li:hover .grayImage img:nth-of-type(2n) {
+    position: absolute;
+    opacity: 0;
+    -webkit-transition-duration: 0.5s;
+}
+
+#BoxSlide img {
+    border: 0;
+    width: 100%;
+    position: absolute;
+}
+
+#BoxSlide .title {
+    font-size: 30px;
+    text-align: center;
+}
+/* Song Album */
+.leftArrow {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+    .leftArrow:hover {
+        opacity: 1;
+    }
+
+.rightArrow {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+    .rightArrow:hover {
+        opacity: 1;
+    }
+
+
+.arrowContainer {
+    position: absolute;
+    left: 50%;
+    -webkit-transform: rotateZ(45deg);
+    box-sizing: border-box;
+}
+
+.songTitle {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 0px;
+    color: #fff;
+    z-index: 10;
+    -webkit-box-shadow: 0 0 10 dodgerblue inset;
+}
+
+#SongAlbumContainer {
+    position: absolute;
+    top: 50%;
+    color: dodgerblue;
+}
+
+.songCover {
+    display: block;
+    position: absolute;
+    background: #000;
+    cursor: pointer;
+    -webkit-transition-duration: 0.5s;
+    -webkit-backface-visibility: visible;
+}
+
+    .songCover:before {
+        content: "";
+        width: 40%;
+        height: 40%;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        border-top: 20% solid #fff;
+        border-left: 20% solid #fff;
+    }
+
+.songImage {
+    width: 90%;
+    height: 90%;
+    border: 1px solid #fff;
+    box-sizing: border-box;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    margin: 5%;
+    -webkit-border-radius: 50%;
+    background: #fff;
+}
+
+    .songImage:before {
+        position: absolute;
+        width: 35%;
+        height: 35%;
+        border: 1px solid #fff;
+        box-sizing: content-box;
+        background: #000;
+        margin: 32.5%;
+        -webkit-border-radius: 50%;
+        content: ""; /* most important 不加无效*/
+    }
+
+.playingCover {
+    -webkit-animation-name: playingCircle;
+    -webkit-animation-duration: 0.1s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-direction: normal;
+}
+
+@-webkit-keyframes playingCircle {
+
+    100% {
+        -webkit-transform-origin: center;
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+.centerSong {
+    /*border: 1px solid #fff;*/
+    -webkit-box-shadow: 0px 0px 40px 4px #fff;
+    box-sizing: border-box;
+}
+/* 进度条效果 */
+#AudioControl {
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: auto;
+    box-sizing: border-box;
+    /*
+    background: rgba(255,255,255,0.6);
+    -webkit-box-shadow: 0px -3px 10px #000 inset;
+    */
+    padding: 15px;
+    font-size: 15px;
+    line-height: 30px;
+    text-align: center;
+}
+
+.control-bar {
+    position: relative;
+    float: left;
+    height: 8px;
+    background: rgba(0,0,0,0.3);
+    -webkit-border-radius: 4px;
+    -webkit-box-shadow: 0px 0px 4px #000 inset;
+    cursor: pointer;
+    margin: 11px 0px;
+}
+
+#GainControl {
+    width: auto;
+    height: 30px;
+    float: right;
+}
+
+#GainBar {
+    width: 150px;
+    float: right;
+    -webkit-transition-duration: 0.5s;
+}
+
+#GainValue {
+    width: 50px;
+    float: right;
+    padding: 0px 5px;
+}
+
+#SongMuteIcon {
+    width: 30px;
+    height: 30px;
+    position: relative;
+    float: right;
+    padding: 0px 8px;
+    cursor: pointer;
+}
+
+#OrderControl {
+    float: left;
+    margin-left: 60px;
+    height: 30px;
+    width: auto;
+}
+
+#AudioControl .icon {
+    width: 30px;
+    height: 30px;
+    position: relative;
+    float: left;
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+#SongRepeatIcon {
+    background: url("../img/repeat.png") no-repeat;
+    background-position: center;
+}
+
+    #SongRepeatIcon:hover {
+        opacity: 1;
+    }
+
+    #SongRepeatIcon.enabled {
+        opacity: 1;
+    }
+
+#SongShuffleIcon {
+    background: url("../img/shuffle.png") no-repeat;
+    background-position: center;
+}
+
+    #SongShuffleIcon:hover {
+        opacity: 1;
+    }
+
+    #SongShuffleIcon.enabled {
+        opacity: 1;
+    }
+
+#SongMuteIcon.mute {
+    background: url("../img/mute.png") no-repeat;
+    background-position: center;
+}
+
+#SongMuteIcon.enable {
+    background: url("../img/volume.png") no-repeat;
+    background-position: center;
+}
+
+/* #GainBar  #ProgressBar */ .space {
+    position: relative;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    background: dodgerblue;
+    -webkit-border-radius: inherit;
+}
+/* #GainBar #ProgressBar */ .handle {
+    position: absolute;
+    width: 6px;
+    height: 100%;
+    -webkit-border-radius: inherit;
+    top: 0px;
+    right: 0px;
+    background: #fff;
+    display: none;
+}
+
+#ProgressControl {
+    position: relative;
+    width: auto;
+    float: left;
+}
+
+.progress-time {
+    width: 50px;
+    position: relative;
+    float: left;
+    padding: 0px 5px;
+    text-align: center;
+}
+
+#ProgressBar {
+    width: 250px;
+}
+
+
+/*canvas audio*/
+#cvs {
+    bottom: 0px;
+    z-index: -10;
+}
+
+
+/*伪元素设置背景图半透明*/
+.section1bg_width:before {
+    background: url("../img/bgGuiltyCrome.png") no-repeat bottom right;
+    background-size: auto 100%;
+    opacity: 0.3;
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.section1bg_height:before {
+    background: url("../img/bgGuiltyCrome.png") no-repeat bottom right;
+    background-size: 100% auto;
+    opacity: 0.3;
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+/*
+    雷达 时钟    
+*/
+
+#FilterBar {
+    /*
+    opacity:0;
+    -webkit-animation-name:RadarEffect; 
+    */
+    -webkit-transform-origin: right bottom;
+    -webkit-transform: rotate(0deg);
+    /*
+        background-image: -webkit-gradient(radial, 0% 100%, 300, 0% 100%, 500, from(transparent), to(lightgreen));
+    */
+    -webkit-animation-name: RadarEffect;
+    -webkit-animation-duration: 5s;
+    -webkit-animation-delay: 5s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-direction: normal;
+}
+
+@-webkit-keyframes RadarEffect {
+    /*
+        durationtime:3s    
+    */
+    0% {
+        opacity: 1;
+        -webkit-transform: rotate(0deg);
+    }
+
+    1% {
+        -webkit-transform: rotate(6deg);
+        background-image: -webkit-gradient(radial, 0% 100%, 300, 0% 100%, 500, from(transparent), to(lightgreen));
+    }
+
+    60% {
+        -webkit-transform: rotate(360deg);
+        background-image: -webkit-gradient(radial, 0% 100%, 300, 0% 100%, 500, from(transparent), to(lightgreen));
+    }
+
+    75% {
+        opacity: 1;
+        -webkit-transform: rotate(360deg);
+        background-image: none;
+    }
+
+    85% {
+        opacity: 0;
+        background-image: none;
+        -webkit-transform: rotate(360deg);
+    }
+
+    100% {
+        opacity: 1;
+        -webkit-transform: rotate(360deg);
+        background-image: none;
+    }
+}
+
+/* Menu */
+
+.mr5 {
+    margin-right:5%;
+}
+
+.FirstMenuArrowUp_Effect {
+    -webkit-animation-name: FirstMenuArrowUpEffect;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-delay: 0s;
+    -webkit-animation-iteration-count: infinite;
+    /*-webkit-animation-direction: alternate;*/
+    -webkit-animation-play-state: running;
+}
+
+@-webkit-keyframes FirstMenuArrowUpEffect /* Safari and Chrome */ {
+
+    20% {
+        height: 20px;
+        top: -20px;
+    }
+
+    100% {
+        height: 15px;
+        top: -15px;
+    }
+}
+
+.FirstMenuArrowDown_Effect {
+    -webkit-animation-name: FirstMenuArrowDownEffect;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-delay: 0s;
+    -webkit-animation-iteration-count: infinite;
+    /*-webkit-animation-direction: alternate;*/
+    -webkit-animation-play-state: running;
+}
+
+@-webkit-keyframes FirstMenuArrowDownEffect /* Safari and Chrome */ {
+
+    20% {
+        height: 25px;
+        top: -10px;
+    }
+
+    100% {
+        height: 25px;
+        top: -16px;
+    }
+}
+
+.circleEffect {
+    -webkit-animation-name: CircleEffect;
+    -webkit-animation-duration: 3.6s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-delay: 0s;
+    -webkit-animation-iteration-count: infinite;
+    /*-webkit-animation-direction: alternate;
+    真心没搞懂怎么交替的
+    */
+    -webkit-animation-play-state: running;
+    /*-webkit-transition-property: font-size, color;
+	-webkit-transition-duration: 0.2s;
+	-webkit-transition-timing-function: linear;
+	-webkit-transition-delay: 0s;
+    */
+}
+
+@-webkit-keyframes CircleEffect /* Safari and Chrome */ {
+    25% {
+        -webkit-box-shadow: 0 0 100px 20px #fff,inset 0 0 50px 0px #fff;
+        /*
+	    margin-top:-240px;
+	    margin-left:-240px;
+		border:40px solid #fff;
+		border-radius:240px;
+	    */
+    }
+
+    100% {
+        -webkit-box-shadow: 0 0 100px 0px #fff,inset 0 0 50px 0px #fff;
+        /*
+	    margin-top:-240px;
+	    margin-left:-240px;
+		border:40px solid #fff;
+		border-radius:240px;
+	    */
+    }
+}
+
+.rotateEffect {
+    -webkit-animation-name: RotateEffect;
+    -webkit-animation-duration: 1.5s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-delay: 0s;
+    -webkit-animation-play-state: running;
+}
+
+
+@-webkit-keyframes RotateEffect /* Safari and Chrome */ {
+    100% {
+        -webkit-transform: rotate(-720deg); /* Safari and Chrome */
+        left: -50%; /* Safari and Chrome */
+    }
+}
+
+
+.moveEffect {
+    -webkit-animation-name: moveEffect;
+    -webkit-animation-duration: 1.5s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-delay: 0s;
+    -webkit-animation-play-state: running;
+}
+
+@-webkit-keyframes moveEffect /* Safari and Chrome */ {
+    100% {
+        left: -50%; /* Safari and Chrome */
+    }
+}
+
+.circleShine {
+    -webkit-animation-name: circleShineEffect;
+    -webkit-animation-duration: 1.0s;
+    -webkit-animation-timing-function: ease-in;
+    -webkit-animation-delay: 0s;
+    /*-webkit-animation-play-state:paused;*/
+    -webkit-animation-iteration-count: 1;
+}
+
+@-webkit-keyframes circleShineEffect /* Safari and Chrome */ {
+    50% {
+        -webkit-box-shadow: 0 0 100px 200px #fff,inset 0 0 100px 5px #fff;
+        border-color: #fff;
+    }
+
+    100% {
+        -webkit-box-shadow: 0 0 100px 2000px #fff,inset 0 0 200px 200px #fff;
+        border-color: #FFF;
+    }
+}
+
+
+
+.animation-paused {
+    -webkit-animation-play-state: paused;
+    -moz-animation-play-state: paused;
+    -o-animation-play-state: paused;
+    animation-play-state: paused;
+}

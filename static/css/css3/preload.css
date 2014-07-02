@@ -1,0 +1,232 @@
+﻿/*
+    preload    
+*/
+.prehidden {
+    visibility: hidden;
+}
+
+.preloadLayer{
+	height: 100%;
+	position: absolute;
+	width: 100%;
+	top: 0px;
+	left: 0px;
+    z-index: 99;
+    background: rgba(0, 0, 0, 0.7);
+}
+.preloadLayer .cover{
+	width:100%;
+	height:100%;
+	background-color: #fff;
+	opacity: 0.5;
+}
+#loadingMsg{
+	position: absolute;
+    top: 50%;
+    margin-top: 0px;
+    left: 50%;
+    margin-left: -105px;
+    width: 210px;
+    text-align: center;
+    color: #fff;
+}
+
+/*preload image css*/
+.floatingCirclesG{
+	position:relative;
+	width:210px;
+	height:210px;
+    -webkit-animation-name:f_fadeG;
+	-webkit-animation-duration:1.5s;
+    -webkit-animation-timing-function: linear;
+	-webkit-animation-iteration-count:infinite;
+	-webkit-animation-direction:normal;
+}
+
+.f_circleG{
+	position:absolute;
+	height:200px;
+	width:20px;
+}
+
+#frotateG_01{
+	left:7.78px;
+	top:52.89px;
+    /*  -webkit-animation-delay:0.3s; */
+    
+	width:30px;
+	height:30px;
+	-webkit-border-radius:15px;
+    background-color:#ddd;
+}
+
+#frotateG_02{
+	left:29.77px;
+	top:22.61px;
+	/*-webkit-animation-delay:0.4s;*/
+    
+	width:30px;
+	height:30px;
+    -webkit-border-radius:15px;
+    background-color:#ccc;
+}
+
+#frotateG_03{
+	left:62.18px;
+	top:3.91px;
+	/*-webkit-animation-delay:0.5s;*/
+    
+	width:30px;
+	height:30px;
+    -webkit-border-radius:15px;
+    background-color:#bbb;
+}
+
+#frotateG_04{
+	left:99.40px;
+	top:0px;
+	/*-webkit-animation-delay:0.6s;*/
+
+	width:30px;
+	height:30px;
+    -webkit-border-radius:15px;
+    background-color:#aaa;
+}
+
+#frotateG_05{
+	left:134.99px;
+	top:11.56px;
+	/*-webkit-animation-delay:0.7s;*/
+
+	margin-left:2px;
+	margin-top:2px;
+    width:26px;
+	height:26px;
+	-webkit-border-radius:13px;
+    background-color:#999;
+}
+
+#frotateG_06{
+	left:162.81px;
+	top:36.59px;
+	/*-webkit-animation-delay:0.8s;*/
+    
+	margin-left:3px;
+	margin-top:3px;
+    width:24px;
+	height:24px;
+	-webkit-border-radius:12px;
+    background-color:#888;
+}
+
+#frotateG_07{
+	left:178.03px;
+	top:70.78px;
+	/*-webkit-animation-delay:0.9s;*/
+
+	margin-left:4px;
+	margin-top:4px;
+	width:22px;
+	height:22px;
+	-webkit-border-radius:11px;
+    background-color:#777;
+}
+
+#frotateG_08{
+	left:178.03px;
+	top:108.21px;
+	/*-webkit-animation-delay:1.0s;*/
+    
+	margin-left:5px;
+	margin-top:5px;
+	width:20px;
+	height:20px;
+	-webkit-border-radius:10px;
+    background-color:#666;
+}
+
+#frotateG_09{
+	left:162.81px;
+	top:142.40px;
+	/*-webkit-animation-delay:1.10s;*/
+    margin-left:6px;
+	margin-top:6px;
+	width:18px;
+	height:18px;
+	-webkit-border-radius:9px;
+    background-color:#555;
+}
+#frotateG_10{
+	left:135.00px;
+	top:167.44px;
+	/*-webkit-animation-delay:1.20s;*/
+    margin-left:7px;
+	margin-top:7px;
+	width:16px;
+	height:16px;
+	-webkit-border-radius:8px;
+    background-color:#444;
+}
+#frotateG_11{
+	left:99.40px;
+	top:179.00px;
+	/*-webkit-animation-delay:1.30s;*/
+    margin-left:8px;
+	margin-top:8px;
+	width:14px;
+	height:14px;
+	-webkit-border-radius:7px;
+    background-color:#333;
+}
+#frotateG_12{
+	left:62.18px;
+	top:175.09px;
+	/*-webkit-animation-delay:1.40s;*/
+    margin-left:9px;
+	margin-top:9px;
+	width:12px;
+	height:12px;
+	-webkit-border-radius:6px;
+    background-color:#222;
+}
+#frotateG_13{
+	left:29.77px;
+	top:156.38px;
+	/*-webkit-animation-delay:1.50s;*/
+    margin-left:10px;
+	margin-top:10px;
+	width:10px;
+	height:10px;
+	-webkit-border-radius:5px;
+    background-color:#111;
+}
+#frotateG_14{
+	left:7.78px;
+	top:126.10px;
+	/*-webkit-animation-delay:1.60s;*/
+	margin-left:13px;
+	margin-top:13px;
+	width:4px;
+	height:4px;
+	-webkit-border-radius:2px;
+    background-color:#000000;
+}
+#frotateG_15{
+	left:0px;
+	top:89.50px;
+	/*-webkit-animation-delay:1.70s;*/
+	margin-left:0px;
+	margin-top:0px;
+	width:30px;
+	height:30px;
+	-webkit-border-radius:15px;
+    background-color:#fff;
+}
+
+@-webkit-keyframes f_fadeG{
+	
+	100%{
+		-webkit-transform-origin: center;
+        -webkit-transform: rotate(-360deg);
+	}
+}

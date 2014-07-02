@@ -1,11 +1,122 @@
-<!DOCTYPE html>
-<html>
-
+</html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--<html xmlns="http://www.w3.org/1999/xhtml" manifest="Day-Dream.appcache">-->
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>itscloudy</title>
-    <meta charset="utf-8">
+    <title>Day - Dream</title>
+    <!-- 编码设置 -->
+    <meta charset="utf-8" />
+    <!-- 定义针对搜索引擎的关键词： -->
+    <meta name="keywords" content="HTML, CSS, XML, XHTML, JavaScript, JQuery, CSS3, HTML5" />
+    <!-- 定义对页面的描述 -->
+    <meta name="description" content="DayDream,Html 5 , HTML" />
+    <!-- 定义页面的最新版本 -->
+    <meta name="revised" content="Cloud, 2013/11/9" />
+    <!--  链接外部样式 -->
+    <!-- reset css -->
+    <link type="text/css" rel="stylesheet" href="static/css/reset/reset.css" />
+    <!--<link type="text/css" rel="stylesheet" href="static/css/reset/html5-base.css" />    -->
+    <!-- custom css -->
+    <link type="text/css" rel="stylesheet" href="static/css/main.css" />
+    <link type="text/css" rel="stylesheet" href="static/css/effect.css" />
+    <link type="text/css" rel="stylesheet" href="static/css/view/main-view.css" />
+    <link type="text/css" rel="stylesheet" href="static/css/view/rotate3Dpane.css" />
+    <link type="text/css" rel="stylesheet" href="static/css/css3/preload.css" />
+    <link type="text/css" rel="stylesheet" href="static/css/css3/radar.css" />
 </head>
+<body>
+    <div id="MainContainer" style="position:fixed">
+        <!-- Page Section -->
+        <!-- Login -->
+        <section id="Login" class="hidden">
+            <div class="CircleZoom">
+                <div id="LoginTitle">
+                    <span>DAY</span><span>Dream</span>
+                </div>
+                <!--<div id="LoginBtn">LOGIN</div>-->
+            </div>
+            <div class="CircleOut">
+            </div>
+            <div id="BaselineCircle"></div>
+        </section>
 
-<body>Hello Cloud, Hello World!</body>
+        <div id="SectionContainer" class="hidden">
+            <div id="Baseline">
+                <div id="BaselineMainContainer">
+                    <div id="FMArrowContainer" class="hidden">
+                        <div class="FirstMenuArrowUp"></div>
+                    </div>
+                </div>
+            </div>
 
+            <nav id="MainMenu">
+                <ul id="FirstMenuUL"></ul>
+                <div id="SecondMenu" class="hidden">
+                    <div id="SecondMenuContainer">
+                        <ul class="second-menu-ul">
+                            <li id="SM_LeftBar"></li>
+                        </ul>
+                        <div id="ThirdMenu">
+                            <ul id="ThirdMenuUl">
+                            </ul>
+                        </div>
+                        <div id="ForthMenu">
+                            <ul id="ForthMenuUl">
+                                <!--
+                                <li class="third-class-li">
+                                    Forth1
+                                    <div class="TMArrowContainerR">
+                                        <div class="TMArrowRight"></div>
+                                    </div>
+                                    <div class="TMArrowContainerL">
+                                        <div class="TMArrowLeft"></div>
+                                    </div>
+                                </li>-->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <section id="Section1">
+                <div class="section-container" style="background-color: rgba(0,0,0,0.4);">
+                </div>
+            </section>
+
+            <section id="Section3">
+                <div class="section-container">
+                    <div class="album-wall">
+                    </div>
+                </div>
+            </section>
+            <section id="Section4">
+                <div class="section-container" style="background:rgba(0,0,0,0.7)"></div>
+            </section>
+        </div>
+    </div>
+
+    <!-- MainContainer -->
+    <!-- load js delay -->
+    <script type="text/javascript" src="static/js/plugin/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="static/js/common.js"></script>
+    <script type="text/javascript" src="static/js/tools.js"></script>
+    <script type="text/javascript" src="static/js/local-storage.js"></script>
+    <script type="text/javascript" src="static/js/resize.js"></script>
+    <script type="text/javascript" src="static/js/controler.js"></script>
+    <script type="text/javascript" src="static/js/main.js"></script>
+    <script type="text/javascript" src="static/js/view/view.js"></script>
+    <script type="text/javascript" src="static/js/view/login-view.js"></script>
+    <script type="text/javascript" src="static/js/view/part-view.js"></script>
+    <script type="text/javascript" src="static/js/view/section-view.js"></script>
+    <script type="text/javascript" src="static/js/view/view-param.js"></script>
+    <script type="text/javascript" src="static/js/view/view-param-init.js"></script>
+    <script type="text/javascript" src="static/js/custom/section-menu.js"></script>
+    <script type="text/javascript" src="static/js/custom/rotate3Dpane.js"></script>
+    <script type="text/javascript" src="static/js/custom/album-wall.js"></script>
+    <script type="text/javascript" src="static/js/custom/radar.js"></script>
+    <script type="text/javascript" src="static/js/custom/audio.js"></script>
+    <script type="text/javascript" src="static/js/custom/canvas.js"></script>
+    <script type="text/javascript" src="static/js/custom/cant-slide.js"></script>
+    <link type="text/css" rel="stylesheet" href="static/css/font-awesome/font-awesome.css" />
+</body>
 </html>

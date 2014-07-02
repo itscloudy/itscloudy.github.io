@@ -1,0 +1,21 @@
+﻿/* display:table-cell ;设置元素剧中*/
+    .bubble {
+        display: table;
+    }
+    .bubble div {
+        display: table-cell;
+        vertical-align: middle;
+    }
+/*<!--[if lt IE 8]>
+<style>
+.bubble div {position:absolute; top:50%;}
+.bubble div p {position:relative; top:-50%}
+</style>
+<![endif]–>-->
+    */
+
+/* css3 函数calc 动态设定长度 */
+.wrapper .col {  
+    width: calc(100% / 3);  
+    padding: 0 10px;  
+}

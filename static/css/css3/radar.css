@@ -1,0 +1,106 @@
+﻿svg circle, line {
+    stroke: lightgreen;
+    stroke-width: 1;
+    stroke-opacity: 0.4;
+    fill: none;
+}
+
+svg .hourmarkline {
+    stroke: lightgreen;
+    stroke-width: 3;
+    stroke-opacity: 1;
+    fill: none;
+}
+
+svg .minutemarkline {
+    stroke: lightgreen;
+    stroke-width: 2;
+    stroke-opacity: 1;
+    fill: none;
+}
+
+.normaltext {
+    font-size: 20px;
+}
+
+#RadarHour {
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    display: block;
+    top: 0px;
+    right: 0px;
+    box-sizing: border-box;
+    border: 4px solid lightgreen;
+    -webkit-border-radius: 16px;
+    -webkit-box-shadow: 0 0 25px 3px lightgreen;
+    -webkit-transition-duration: 0.5s;
+}
+
+#RadarHourContainer {
+    width: 166px;
+    height: 32px;
+    top: 284px;
+    left: 300px;
+    position: absolute;
+    -webkit-transform-origin: left;
+    opacity: 0;
+}
+
+#RadarMinute {
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    display: block;
+    top: 0px;
+    right: 0px;
+    box-sizing: border-box;
+    border: 2px solid lightgreen;
+    -webkit-border-radius: 11px;
+    -webkit-box-shadow: 0 0 20px 2px lightgreen;
+    -webkit-transition-duration: 0.5s;
+}
+
+#RadarMinuteContainer {
+    width: 211px;
+    height: 22px;
+    top: 289px;
+    left: 300px;
+    position: absolute;
+    -webkit-transform-origin: left;
+    opacity: 0;
+}
+
+#RadarTime {
+    position: relative;
+    margin: auto;
+    width: 600px;
+    height: 600px;
+    -webkit-border-radius: 300px;
+    overflow: hidden;
+}
+
+#FilterBar {
+    position: absolute;
+    width: 301px;
+    height: 300px;
+    top: 0px;
+    left: 0px;
+    -webkit-transform: scaleX(0.55);
+    -webkit-border-radius: 300px 0px 0px 0px;
+}
+
+#lightline {
+    -webkit-box-shadow: 0 0 50px 5px lightgreen;
+    height: 100%;
+    width: 2px;
+    background: lightgreen;
+    position: absolute;
+    right: 0px;
+}
+
+#RadarDial {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}

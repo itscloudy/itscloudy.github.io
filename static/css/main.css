@@ -1,0 +1,410 @@
+.hidden
+{
+    display:none;   
+}
+#MainContainer
+{
+    height:100%;
+    width:100%;
+}
+
+.CircleZoom
+{
+    width:400px;
+    height:400px;
+    left:50%;
+    top:50%;
+    margin-top:-200px;
+    margin-left:-200px;
+    position:absolute;
+    z-index:50;
+       
+}
+#LoginTitle 
+{
+    position: relative;
+    margin: auto;
+    width: 250px;
+    text-align: center;
+    font-size: 20px;
+    color: #fff;
+    font-weight: bolder;
+    line-height: 50px;
+    padding: 175px 50px;
+    border: 0px;
+    background: transparent;
+    cursor: pointer;
+}
+    
+#LoginTitle span:nth-of-type(1) {
+    width: 122px;
+    display: block;
+    position: relative;
+    float: left;
+    border-top: 1px solid #fff;
+    border-right: 1px solid #fff;
+}
+#LoginTitle span:nth-of-type(2) {
+    width: 122px;
+    display: block;
+    position: relative;
+    float: left;
+    border-left: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    border-top: 1px solid transparent;
+}
+
+#UserName 
+{
+    position:relative;
+    margin-left:50px;  
+    margin-top:120px;
+    width:300px;
+    height:40px;
+    text-align: center;
+    font-size: 30px;
+    color:#fff;
+    font-weight: bolder;
+    border: 0px;
+    border-bottom:3px solid #888;
+    background: transparent;
+}
+#LoginBtn 
+{
+    font-family: Aharoni;
+    width: 100px;
+    height: 100px;
+    margin: auto;
+    margin-top: 25px;
+    border: 3px solid #999;
+    border-radius: 20px;
+    cursor: pointer;
+    vertical-align: middle;
+    line-height: 100px;
+    text-align: center;
+    font-size: 28px;
+    color: #999;
+    font-weight: bold;
+    background: transparent;
+}
+.CircleOut 
+{
+    height:390px;
+    width:390px;
+    margin:auto;
+    position:absolute;
+	
+	top:50%;
+	left:50%;
+	margin-top:-200px;
+	margin-left:-200px;
+    
+	border:5px solid #aaa;
+    border-radius:230px;
+
+    background-color:#000;
+    -webkit-box-shadow: 0 0 100px 0px #fff,inset 0 0 50px 0px #fff;
+}
+.CircleIn 
+{
+    height:400px;
+    width:400px;
+    margin:auto;
+    position:absolute;
+    
+	top:50%;
+	left:50%;
+	margin-top:-213px;
+	margin-left:-213px;
+	border:13px solid #aaa;
+    border-radius:230px;
+}
+#BaselineCircle
+{
+    position:fixed;
+    top:50%;
+    margin-top:210px;
+    height:6px;
+    background-color:#aaa;
+    z-index:200;
+    width:0px;
+}
+/* Menu CSS Start*/
+#Baseline {
+    position: absolute;
+    height: 6px;
+    background-color: #aaa;
+    z-index: 200;
+    width: 0px;
+    bottom: 70px;
+    -webkit-transition-duration:0.7s;
+    -webkit-box-shadow: 0px -3px 5px rgba(255,255,255,.2);
+}
+#BaselineMainContainer 
+{
+    margin:auto;
+    position:relative;
+	height:6px;
+}
+
+.FirstMenuArrowDown
+{
+    border-width:15px;
+    border-style:solid;
+    border-color:#fff transparent transparent transparent;
+    border-bottom: 0px;
+}
+.FirstMenuArrowUp
+{
+    border-width:15px;
+    border-style:solid;
+    border-color:#AAA transparent;
+    border-top: 0px;
+}
+#FMArrowContainer
+{
+    width:30px;
+    height:15px;
+	position:absolute;
+    overflow:hidden;
+}
+#MainMenu
+{
+    font-weight:900;
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+    height: 70px;
+    z-index: 150;
+}
+#FirstMenuUL
+{
+    position:relative;
+    margin:auto;
+    /*overflow:hidden;*/
+}
+
+.first-class-li
+{
+    position:relative;
+    float:left;
+    font-size:20px;
+    text-align:center;
+    background-color:transparent;
+    color: #999;
+	cursor: pointer;
+}
+.first-class-li:nth-of-type(2n+1) {
+    background-color:#444;
+}
+.first-class-li:nth-of-type(2n) {
+    background-color:#222;
+}
+
+.first-class-li-hover
+{
+    position:relative;
+    float:left;
+    font-size:20px;
+    text-align:center;
+    background-color:#ccc;    
+    color:#fff;
+    cursor: pointer;
+	   
+}
+.first-class-li.menuSelected
+{   
+    font-size:26px;
+    color:#fff;
+    background-color:#aaa;
+    z-index:100;
+    -webkit-box-shadow:0 0 10px #000;
+}
+#FMViewZoom {
+	position:absolute;
+	overflow: hidden;
+}
+.fm-container-hover
+{
+    position: absolute;
+    text-align: center;
+}
+
+#SecondMenu
+{
+    font-family:  Agency FB;
+    font-weight: bolder;
+    width:auto;
+    position:absolute;
+    height:auto;
+}
+.second-menu-ul
+{
+    height:auto;
+    position:relative;
+    float:left;    
+    z-index:50;
+}
+#SecondMenuContainer
+{
+    width: auto;
+    position: relative;
+    margin: auto;
+    bottom: 0px;
+}
+.second-class-li
+{    
+    height: 0px;
+    color:#fff;
+    left: 0px;
+    overflow:hidden;
+}
+.third-li-content {
+    position:relative;
+    float:left;
+    text-align: center;
+    background-color:#ddd;
+}
+.second-class-li.selected .second-li-content
+{    
+    color:#fff;
+    background-color:#aaa;  
+}
+.second-class-li.selected .sm-arrow-right
+{    
+    border: 25px solid transparent;
+    border-left-color:#aaa;
+    border-right: 0px;
+}
+
+.second-li-content
+{    
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    color:#fff;
+    position:relative;
+    float:left;
+    cursor: pointer;
+    background-color:#ddd;
+}
+#SM_LeftBar
+{
+    width: 4px;
+    height: 100%;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    background-color: #AAA;
+}
+
+.sm-arrow-container {
+    width: 25px;
+    height: 50px;
+    position:relative;
+    float:left;
+    overflow:hidden;
+}
+
+.sm-arrow-right {
+    border: 25px solid transparent;
+    border-left-color:#ddd;
+    border-right: 0px;
+}
+
+/* Third Menu*/
+#ThirdMenu
+{
+    position:absolute;
+    width:auto;
+    height:auto;  
+    z-index:45;
+}
+#ThirdMenuUl
+{
+    position:relative;
+    width:auto;
+    height:auto;
+ }
+ .third-class-li
+ {
+     position:relative;
+     color:#fff;
+     text-align:center; 
+     margin: 0px 25px;
+     cursor:pointer;
+     overflow:hidden;
+     width:0px;
+ }
+  .third-class-li_hover
+ {
+     background-color:#aaa;
+     color:#FFF;
+ }
+.TMArrowContainerR
+{
+    width: 25px;
+    height: 50px;
+    overflow: hidden;
+    position: relative;
+    float:left;
+}
+.TMArrowContainerL
+{
+    width:25px;
+    height:50px;
+    overflow:hidden;
+    position:relative;
+    float:left; 
+}
+.TMArrowLeft{
+    border: 25px solid transparent;
+    border-color: transparent #ddd transparent transparent;
+    border-left: 0px;
+}
+.TMArrowRight{
+    border: 25px solid transparent;
+    border-left-color: #ddd;
+    border-right: 0px;
+}
+.third-class-li.selected .third-li-content {
+    background-color:#aaa;
+}
+.third-class-li.selected .TMArrowLeft{
+    border-right-color:#aaa;
+}
+.third-class-li.selected .TMArrowRight{
+    border-left-color: #aaa;
+}
+
+#ForthMenu
+{
+    position:absolute;
+    left:321px;
+    width:175px;
+    height:auto;  
+}
+#ForthMenuUl
+{
+    position:relative;
+    width:auto;
+    height:auto;
+ }
+
+/* Menu CSS End*/
+div,span {
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    backface-visibility: hidden;
+ 
+    -webkit-perspective: 1000;
+    -moz-perspective: 1000;
+    -ms-perspective: 1000;
+    perspective: 1000;
+}

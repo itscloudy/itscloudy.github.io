@@ -1,0 +1,16 @@
+﻿2013/11/15
+使用animate的动态效果在动作多发的情况动画不流畅，考虑全部改为css3效果 --Task
+
+2013/12/19
+add task
+【Audio source control】
+
+【touch 多点触控】
+
+【ideal: more random】
+
+【css3: my shadow】
+
+【localhistory: push history&my action】
+
+【preloading effect: half circle{thingking}】

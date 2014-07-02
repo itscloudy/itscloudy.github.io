@@ -1,0 +1,264 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Day - Dream</title>
+
+    <!-- 编码设置 -->
+    <meta charset="utf-8" />
+    <!-- 定义针对搜索引擎的关键词： -->
+    <meta name="keywords" content="HTML, CSS, XML, XHTML, JavaScript, JQuery, CSS3, HTML5" />
+    <!-- 定义对页面的描述 -->
+    <meta name="description" content="DayDream,Html 5 , HTML" />
+    <!-- 定义页面的最新版本 -->
+    <meta name="revised" content="Cloud, 2013/11/9" />
+
+    <!--  链接外部样式 -->
+    <!-- reset css -->
+    <link type="text/css" rel="stylesheet" href="static/css/reset/reset.css" />
+    <!--<link type="text/css" rel="stylesheet" href="static/css/reset/html5-base.css" />    -->
+    <!-- custom css -->
+    <link type="text/css" rel="stylesheet" href="static/css/main.css" />
+
+    <!-- font-awesome -->
+    <link type="text/css" rel="stylesheet" href="font-awesome/font-awesome.css"/>
+    <style>
+        .hexagon-v {
+            width: 173.2px;
+            height: 100px;
+            margin-top: 50px;
+            margin-bottom: 50px;
+            background-color: lightgreen;
+        }
+
+            .hexagon-v:before {
+                content: "";
+                position: absolute;
+                border: 86.6px solid transparent;
+                border-top: 0px;
+                border-bottom:50px solid lightgreen;
+                top: -50%;
+                background-color: lightgreen;
+                -webkit-background-clip: content-box;
+            }
+            .hexagon-v:after {
+                content: "";
+                position: absolute;
+                border: 86.6px solid transparent;
+                border-bottom: 0px;
+                border-top:50px solid lightgreen;
+                bottom: -50%;
+                background-color: lightgreen;
+                -webkit-background-clip: content-box;
+            }
+
+        
+
+
+            .find-turnheadH-effect:hover {
+                -webkit-animation-name: find-turnheadeHffect;
+                -webkit-animation-duration: 3.0s;
+                -webkit-animation-timing-function: ease-in-out;
+                /*-webkit-animation-timing-function: ease-in;*/
+                -webkit-animation-delay: 0s;
+                /*-webkit-animation-play-state:paused;*/
+                -webkit-animation-iteration-count: 1;
+            }
+
+        @-webkit-keyframes find-turnheadeHffect /* Safari and Chrome */ {
+            20% {
+                -webkit-transform-origin: center;
+                -webkit-transform: rotateY(-30deg);
+            }
+
+            60% {
+                -webkit-transform: rotateY(+30deg);
+            }
+
+            75% {
+                -webkit-transform: rotateY(0deg);
+            }
+
+            79% {
+                -webkit-transform: translate3d(10%,0px,0px);
+            }
+
+            85% {
+                -webkit-transform: translate3d(-10%,0px,0px);
+            }
+
+            91% {
+                -webkit-transform: translate3d(10%,0px,0px);
+            }
+
+            97% {
+                -webkit-transform: translate3d(-10%,0px,0px);
+            }
+
+            100% {
+                -webkit-transform: translate3d(0px,0px,0px);
+            }
+        }
+
+        .turnheadH-effect:hover {
+            -webkit-animation-name: turnheadeHffect;
+            -webkit-animation-duration: 1.5s;
+            -webkit-animation-timing-function: ease-in-out;
+            /*-webkit-animation-timing-function: ease-in;*/
+            -webkit-animation-delay: 0s;
+            /*-webkit-animation-play-state:paused;*/
+            -webkit-animation-iteration-count: 1;
+        }
+
+        @-webkit-keyframes turnheadeHffect /* Safari and Chrome */ {
+            10% {
+                -webkit-transform-origin: center;
+                -webkit-transform: rotateY(-15deg) translate3d(-10%,0px,0px);
+            }
+
+            30% {
+                -webkit-transform: rotateY(+15deg) translate3d(10%,0px,0px);
+            }
+
+            50% {
+                -webkit-transform: rotateY(-15deg) translate3d(-10%,0px,0px);
+            }
+
+            70% {
+                -webkit-transform: rotateY(15deg) translate3d(10%,0px,0px);
+            }
+            90% {
+                -webkit-transform: rotateY(-15deg) translate3d(-10%,0px,0px);
+            }
+
+            100% {
+                -webkit-transform: rotateY(0deg) translate3d(0px,0px,0px);
+            }
+        }
+
+        .turnheadV-effect:hover {
+            -webkit-animation-name: turnheadeVffect;
+            -webkit-animation-duration: 1.5s;
+            -webkit-animation-timing-function: ease-in-out;
+            /*-webkit-animation-timing-function: ease-in;*/
+            -webkit-animation-delay: 0s;
+            /*-webkit-animation-play-state:paused;*/
+            -webkit-animation-iteration-count: 1;
+        }
+
+        @-webkit-keyframes turnheadeVffect /* Safari and Chrome */ {
+            10% {
+                -webkit-transform-origin: center;
+                -webkit-transform: rotateX(+15deg) translate3d(0px,-20%,0px);
+            }
+
+            30% {
+                -webkit-transform: rotateX(-15deg) translate3d(0px,20%,0px);
+            }
+
+            50% {
+                -webkit-transform: rotateX(15deg) translate3d(0px,-20%,0px);
+            }
+
+            70% {
+                -webkit-transform: rotateX(-15deg) translate3d(0px,20%,0px);
+            }
+
+            90% {
+                -webkit-transform: rotateX(15deg) translate3d(0px,-20%,0px);
+            }
+
+            100% {
+                -webkit-transform: rotateX(0deg) translate3d(0px,0px,0px);
+            }
+        }
+
+        .animation-paused {
+            -webkit-animation-play-state: paused;
+            -moz-animation-play-state: paused;
+            -o-animation-play-state: paused;
+            animation-play-state: paused;
+        }
+
+
+        .board {
+            background: lightgreen;
+            position: absolute;
+            width: 200px;
+            height: 80px;
+        }
+
+        #MainContainer li{
+            width:200px;
+            height:100px;
+            border:1px solid transparent;
+        }
+    </style>
+</head>
+<body>
+    <div id="MainContainer" style="position:fixed;border:2px solid lightblue;">
+        <!--<img id="analyImage"/>
+        <canvas id="ImageBoard" width="100" height="100"></canvas>
+            -->
+        <div class="hexagon-v"></div>
+        <ul style="width:200px;position:relative;margin:auto;">
+            <li>
+                <div class="find-turnheadH-effect board"> find and trun head </div>
+            </li>
+            <li>
+                <div class="turnheadH-effect board"> trun headH </div>
+            </li>
+            <li class="random">
+                test1
+            </li>
+			<li class="random">
+                test2
+            </li>
+			<li class="random">
+                test3
+            </li>
+			<li class="random">
+                test4
+            </li>
+			<li class="random">
+                test5
+            </li>
+			
+			
+        </ul>
+    </div>
+
+    <!-- MainContainer -->
+    <!-- load js delay -->
+    <script type="text/javascript" src="static/js/plugin/jquery-1.8.3.js"></script>
+    <script type="text/javascript" src="static/js/common.js"></script>
+    <script type="text/javascript" src="static/js/tools.js"></script>
+    <script type="text/javascript" src="static/js/local-storage.js"></script>
+    <script type="text/javascript" src="static/js/custom/canvas.js"></script>
+    <script type="text/javascript">
+		/*(function($){
+			var random = 0;
+		 	$.expr[':'].random = function(a, i, m) { 
+				if (i == 0) {
+				   random = Math.floor(Math.random()); 
+				}
+				return i == random; 
+	   		}; 
+	 	})(jQuery); */
+		
+		jQuery.jQueryRandom = 0;
+		jQuery.extend(jQuery.expr[":"], {
+			random: function(a, i, m, r) {
+				if (i == 0) {
+					jQuery.jQueryRandom = Math.floor(Math.random() * r.length);
+				};
+				return i == jQuery.jQueryRandom;
+			}
+		});
+		
+        $().ready(function () {
+            //TODO
+			$('li.random:random').html('glow'); 
+        });
+    </script>
+</body>
+</html>
